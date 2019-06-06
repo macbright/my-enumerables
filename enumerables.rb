@@ -32,6 +32,15 @@ module Enumerable
         end
       end
     end
+    def my_any?
+      self.length.times do |x|
+        if yield(self[x]) != false
+          return true
+        end
+      end
+      false
+    end
+
 
 
     
@@ -39,9 +48,8 @@ end
 
 def test1(arr)
     include Enumerable
-    arr.my_all? do |i|
-     print i < 20
-
+    arr.my_any? do |i|
+     print i > 10
     end
 end
 arr = [2,3,4,5,6,8,9,10,12]
