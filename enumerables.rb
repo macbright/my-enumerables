@@ -48,14 +48,20 @@ module Enumerable
       end
       true
     end
+    def my_count
+      index = 0
+      self.length.times do |x|
+        # yield(index)
+        index += 1
+      end
+      index
+    end
     
 end
 
 def test1(arr)
     include Enumerable
-    arr.my_any? do |i|
-     i > 10
-    end
+    arr.my_count 
 end
-arr = [2,3,4,5,6,8,9,10,12]
+arr = [2,3,4,5,6,8,9,10,12,1,8]
 print test1(arr) 
