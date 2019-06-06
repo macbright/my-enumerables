@@ -64,14 +64,31 @@ module Enumerable
       end
       arr
     end
+    def my_inject
+      first_item = self[0]
+      self.shift
+      self.my_each do |x|
+        next if x == 0
+        # first_item = yield(self[x], first_item)
+        first_item = yield(first_item, x)
+      
+      end
+      first_item 
+      # x = self.shift
+      # y = x
+      # self.my_each { |num| x = yield(x, num); x }
+      # self.unshift(y)
+      # x
+
+    end
     
 end
 
 def test1(arr)
     include Enumerable
-    arr.my_map do |x|
-      x * 2
+    arr.my_inject do |sum, y|
+      sum * y
     end 
 end
-arr = [2,3,4,5,6,8,9,10,12,1,8]
+arr = [2,3,4,2]
 print test1(arr) 
