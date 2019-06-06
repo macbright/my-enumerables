@@ -40,17 +40,22 @@ module Enumerable
       end
       false
     end
-
-
-
+    def my_none?
+      self.length.times do |x|
+        if yield(self[x]) 
+          return false
+        end
+      end
+      true
+    end
     
 end
 
 def test1(arr)
     include Enumerable
     arr.my_any? do |i|
-     print i > 10
+     i > 10
     end
 end
 arr = [2,3,4,5,6,8,9,10,12]
-test1(arr) 
+print test1(arr) 
