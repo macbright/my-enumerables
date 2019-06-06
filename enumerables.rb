@@ -57,13 +57,21 @@ module Enumerable
       index
     end
 
-    def my_map
+    def my_map(proc = nil)
       arr = Array.new
-      self.length.times do |x|
-        arr.push(yield(self[x]))
+      if proc 
+        self.length.times do |x|
+          arr.push(proc.call(self[x]))
+        end
+      else 
+        self.length.times do |x|
+          arr.push(yield(self[x]))
+        end
       end
       arr
     end
+
+
     def my_inject
       first_item = self[0]
       self.shift
@@ -74,20 +82,14 @@ module Enumerable
       
       end
       first_item 
-      # x = self.shift
-      # y = x
-      # self.my_each { |num| x = yield(x, num); x }
-      # self.unshift(y)
-      # x
-
     end
     
 end
 
 def test1(arr)
     include Enumerable
-    arr.my_inject do |sum, y|
-      sum * y
+    arr.my_map do | y|
+      y * 2
     end 
 end
 arr = [2,3,4,2]
