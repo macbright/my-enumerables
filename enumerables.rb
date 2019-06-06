@@ -23,14 +23,25 @@ module Enumerable
       arr
     end
     
+    def my_all?
+      self.length.times do |x|
+        if !yield(self[x])
+          return false
+        else 
+          return true
+        end
+      end
+    end
+
+
+    
 end
 
 def test1(arr)
     include Enumerable
-    arr.my_select do |i|
-      if i % 2 == 0
-        print i
-      end
+    arr.my_all? do |i|
+     print i < 20
+
     end
 end
 arr = [2,3,4,5,6,8,9,10,12]
