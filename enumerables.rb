@@ -56,12 +56,22 @@ module Enumerable
       end
       index
     end
+
+    def my_map
+      arr = Array.new
+      self.length.times do |x|
+        arr.push(yield(self[x]))
+      end
+      arr
+    end
     
 end
 
 def test1(arr)
     include Enumerable
-    arr.my_count 
+    arr.my_map do |x|
+      x * 2
+    end 
 end
 arr = [2,3,4,5,6,8,9,10,12,1,8]
 print test1(arr) 
