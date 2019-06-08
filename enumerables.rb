@@ -85,8 +85,6 @@ module Enumerable
       end
       return out
     end
-    #  if i use this method, it doesn't work for 
-    # multiplication. it gives 0, cause you se
     # def my_inject(first_item = self[0])
   
     #   self.shift
