@@ -7,10 +7,8 @@ module Enumerable
 
 
     def my_each_with_index
-      index = 0
       self.length.times do |x|
-        yield(index)
-        index += 1
+        yield(self[x],x)
       end
     end
 
@@ -19,7 +17,7 @@ module Enumerable
       arr = Array.new
       self.length.times do |x|
         if yield(self[x])
-          arr.push(x)
+          arr.push(self[x])
         end
       end
       arr
@@ -58,12 +56,10 @@ module Enumerable
 
 
     def my_count
-      index = 0
-      self.length.times do |x|
-        # yield(index)
-        index += 1
+      arr = self.my_select do |x|
+        yield(x)
       end
-      index
+      arr.length
     end
 
 
@@ -82,26 +78,37 @@ module Enumerable
     end
 
 
-    def my_inject
-      first_item = self[0]
-      self.shift
+    def my_inject(n = 0)
+       out = n
       self.my_each do |x|
-        next if x == 0
-        # first_item = yield(self[x], first_item)
-        first_item = yield(first_item, x)
-      
+        out = yield(out, x)
       end
-      first_item 
+      return out
     end
+    #  if i use this method, it doesn't work for 
+    # multiplication. it gives 0, cause you se
+    # def my_inject(first_item = self[0])
+  
+    #   self.shift
+    #   self.my_each do |x|
+    #     next if x == 0
+    #     # first_item = yield(self[x], first_item)
+    #     first_item = yield(first_item, x)
+      
+    #   end
+    #   first_item 
+    # end
     
 end
 
+arr = [2,3,2,5]
 
 def test1(arr)
     include Enumerable
-    arr.my_map do | y|
-      y * 2
+    arr.my_inject() do |x, n|
+      x * n
     end
 end
-arr = [2,3,4,2,5,6,5]
-print test1(arr) 
+
+print test1(arr)
+
