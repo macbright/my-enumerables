@@ -55,11 +55,18 @@ module Enumerable
     end
 
 
-    def my_count
-      arr = self.my_select do |x|
-        yield(x)
+    def my_count arg=nil
+      arr = []
+      if block_given?
+          # i = 0
+          arr = self.my_select {|x| yield x}
+      elsif arg != nil
+          arr = self.my_select {|x| x == arg}
+
+      else 
+          return self.size 
       end
-      arr.length
+      arr.size
     end
 
 
